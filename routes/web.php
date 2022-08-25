@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,16 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+use App\Http\Middleware\CheckCustomerWebId;
+use App\Http\Middleware\LanguageSwitcher;
+use Laravel\Lumen\Routing\Router;
+
+
+$router->get(
+    '/',
+    [
+        'as'    => '' ,
+        'uses'  => '',
+        'middleware' => [LanguageSwitcher::class, CheckCustomerWebId::class]
+    ]
+);

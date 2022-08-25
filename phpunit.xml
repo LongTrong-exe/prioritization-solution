@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
-         colors="true"
->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+        <report>
+            <clover outputFile="build/logs/clover.xml"/>
+            <html outputDirectory="build/coverage" lowUpperBound="35" highLowerBound="70"/>
+        </report>
+    </coverage>
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory suffix="Test.php">./tests</directory>
@@ -12,6 +17,12 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
-        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="PRIORITIZATION_QUEUE_CONNECTION" value="database"/>
+        <env name="PRIORITIZATION_SOLUTION_DB_CONNECTION" value="sqlite"/>
+        <env name="PRIORITIZATION_SOLUTION_DB_DATABASE" value=":memory:"/>
+        <env name="PRIORITIZATION_SOLUTION_BATCH_TABLE" value="flowfact_job_batches"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="CONFIGURATION_FILE" value="file_configuration_test"/>
+        <env name="ONOFFICE_PROVIDER_SECRET" value="v@5Sbut^jg6Hq3wYFVQ$nXs9"/>
     </php>
 </phpunit>

@@ -23,6 +23,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
+$app->instance('path.config', app()->basePath() . DIRECTORY_SEPARATOR . 'config');
+$app->instance('path.storage', app()->basePath() . DIRECTORY_SEPARATOR . 'storage');
+
 // $app->withFacades();
 
 // $app->withEloquent();
@@ -60,6 +63,8 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('country_name_mapping');
+$app->configure('number_of_merge_request');
 
 /*
 |--------------------------------------------------------------------------
@@ -91,9 +96,9 @@ $app->configure('app');
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\ConfigurationServiceProvider::class);
+$app->register(App\Providers\OnOfficeConnectorServiceProvider::class);
+$app->register(App\Providers\KeyServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
